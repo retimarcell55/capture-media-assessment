@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Pokemon {
+  id Int @id
+  name String
+  base_experience Int
+  height Int
+  weight Int
+  imageUrl String?
+  abilities PokemonAbility[]
+  moves PokemonMove[]
+  types PokemonType[]
+  votes Vote?
+}
+
+model PokemonAbility {
+  id Int @id @default(autoincrement())
+  name String
+  pokemon Pokemon @relation(fields: [pokemonId], references: [id])
+  pokemonId Int
+}
+
+model PokemonMove {
+  id Int @id @default(autoincrement())
+  name String
+  pokemon Pokemon @relation(fields: [pokemonId], references: [id])
+  pokemonId Int
+}
+
+model PokemonType {
+  id Int @id @default(autoincrement())
+  name String
+  pokemon Pokemon @relation(fields: [pokemonId], references: [id])
+  pokemonId Int
+}
+
+model Vote {
+  pokemonId Int @id @default(autoincrement())
+  pokemon Pokemon @relation(fields: [pokemonId], references: [id])
+  count Int
+}
