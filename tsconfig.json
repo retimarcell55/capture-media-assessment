@@ -15,7 +15,7 @@
       "@/*": ["./src/*"]
     },
     "target": "esnext",
-    "module": "commonjs"
+    "module": "esnext"
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

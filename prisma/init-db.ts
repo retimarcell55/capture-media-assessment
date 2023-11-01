@@ -1,5 +1,5 @@
-import { PrismaClient } from '@prisma/client'
-import {Pokemon, PokemonClient} from "pokenode-ts";
+const { PrismaClient } = require('@prisma/client');
+const { Pokemon, PokemonClient } = require('pokenode-ts');
 
 const prisma = new PrismaClient()
 
@@ -10,8 +10,8 @@ async function main() {
         await api
             .getPokemonById(pokemonId)
             .then(
-                async (data) => {
-                    const pokemon: Pokemon = data;
+                async (data: any) => {
+                    const pokemon: typeof Pokemon = data;
 
                     await prisma.pokemon.create({
                         data: {
@@ -22,21 +22,21 @@ async function main() {
                             imageUrl: pokemon.sprites.front_default,
                             base_experience: pokemon.base_experience,
                             abilities: {
-                                create: pokemon.abilities.map((ability) => {
+                                create: pokemon.abilities.map((ability: any) => {
                                     return {
                                         name: ability.ability.name,
                                     }
                                 })
                             },
                             moves: {
-                                create: pokemon.moves.map((move) => {
+                                create: pokemon.moves.map((move: any) => {
                                     return {
                                         name: move.move.name,
                                     }
                                 })
                             },
                             types: {
-                                create: pokemon.types.map((type) => {
+                                create: pokemon.types.map((type: any) => {
                                     return {
                                         name: type.type.name,
                                     }
@@ -46,7 +46,7 @@ async function main() {
                     })
                 }
             )
-            .catch((error) => console.error(error));
+            .catch((error: any) => console.error(error));
     }
 }
 
